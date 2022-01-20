@@ -1,8 +1,13 @@
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/user.controller");
+const express = require('express')
+const app = express()
 const port = 3000
+var cors = require('cors')
 
-
+app.use(cors())
+app.use(express.json())
+app.use(express.static(('kepek')))
 
 module.exports = function(app) {
   app.use(function(req, res, next)
@@ -11,10 +16,13 @@ module.exports = function(app) {
       "Access-Control-Allow-Headers",
       "x-access-token, Origin, Content-Type, Accept"
     );
+    app.use(cors())
+    app.use(express.json())
+    app.use(express.static(('kepek')))
     next();
   });
 
-  
+
   app.get('/filmek', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({

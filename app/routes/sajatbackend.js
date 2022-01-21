@@ -77,7 +77,7 @@ module.exports = function(app) {
   })
   
   connection.connect()
-  let sz='SELECT * from filmek INNER JOIN film_mufajok ON filmek.film_mufaj = film_mufajok.mufaj_id WHERE filmek.film_cim like "%'+req.body.bevitel1+'%"';
+  let sz='SELECT * from sorozat INNER JOIN mufaj ON sorozat.sorozat_mufaj=mufaj.mufaj_id WHERE sorozat.sorozat_cim like "%'+req.body.bevitel1+'%"';
     connection.query(sz, function (err, rows, fields) {
   if (err) throw err
   
@@ -87,7 +87,28 @@ module.exports = function(app) {
   
   connection.end()
   })
+
+//-----------------------------------------------KERESÉS FILMEK KÖZÖTT
+  app.post('/filmkereses', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+  })
   
+  connection.connect()
+  let sz='SELECT * from filmek INNER JOIN film_mufajok ON filmek.film_mufaj=film_mufajok.mufaj_id WHERE filmek.film_cim like "%'+req.body.bevitel1+'%"';
+    connection.query(sz, function (err, rows, fields) {
+  if (err) throw err
+  
+    console.log(rows)
+    res.send(rows)
+  })
+  
+  connection.end()
+  })
   
   //-------------------------------------------------------------------------------------------
   //Műfaj szerint szűri a filmeket

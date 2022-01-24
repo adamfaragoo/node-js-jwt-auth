@@ -88,6 +88,8 @@ module.exports = function(app) {
   connection.end()
   })
 
+  
+
 //-----------------------------------------------KERESÉS FILMEK KÖZÖTT
   app.post('/filmkereses', (req, res) => {
     var mysql = require('mysql')
@@ -109,6 +111,8 @@ module.exports = function(app) {
   
   connection.end()
   })
+
+  
   
   //-------------------------------------------------------------------------------------------
   //Műfaj szerint szűri a filmeket
@@ -126,6 +130,53 @@ module.exports = function(app) {
   connection.connect()
   
   connection.query('SELECT * from filmek INNER JOIN film_mufajok ON filmek.film_mufaj = film_mufajok.mufaj_id WHERE film_mufaj ='+ req.body.bevitel2, function (err, rows, fields) {
+    if (err) throw err
+  
+    console.log(rows)
+    
+    res.send(rows)
+  })
+  
+  connection.end()
+  })
+
+  //-------------------------------------------------------------------------------------------
+  //TÖRLÉSEK
+  //-------------------------------------------------------------------------------------------
+  app.post('/sorozattorles', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+  })
+  
+  connection.connect()
+  
+  connection.query('DELETE FROM sorozat where sorozat_id='+ req.body.bevitel1, function (err, rows, fields) {
+    if (err) throw err
+  
+    console.log(rows)
+    
+    res.send(rows)
+  })
+  
+  connection.end()
+  })
+
+  app.post('/filmkommenttorles', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+  })
+  
+  connection.connect()
+  
+  connection.query('DELETE FROM film_komment where film_komment_id='+ req.body.bevitel1, function (err, rows, fields) {
     if (err) throw err
   
     console.log(rows)

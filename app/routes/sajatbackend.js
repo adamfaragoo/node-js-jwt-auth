@@ -165,6 +165,28 @@ module.exports = function(app) {
   connection.end()
   })
 
+  app.post('/filmtorles', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+  })
+  
+  connection.connect()
+  
+  connection.query('DELETE FROM filmek where film_id='+ req.body.bevitel1, function (err, rows, fields) {
+    if (err) throw err
+  
+    console.log(rows)
+    
+    res.send(rows)
+  })
+  
+  connection.end()
+  })
+
   app.post('/filmkommenttorles', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
@@ -177,6 +199,28 @@ module.exports = function(app) {
   connection.connect()
   
   connection.query('DELETE FROM film_komment where film_komment_id='+ req.body.bevitel1, function (err, rows, fields) {
+    if (err) throw err
+  
+    console.log(rows)
+    
+    res.send(rows)
+  })
+  
+  connection.end()
+  })
+
+  app.post('/sorozatkommenttorles', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+  })
+  
+  connection.connect()
+  
+  connection.query('DELETE FROM kommentek where komment_id='+ req.body.bevitel1, function (err, rows, fields) {
     if (err) throw err
   
     console.log(rows)

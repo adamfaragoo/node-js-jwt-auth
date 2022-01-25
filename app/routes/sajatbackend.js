@@ -340,6 +340,52 @@ module.exports = function(app) {
   connection.end()
     
   })
+
+  app.post('/osszessorozatkomment', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+  })
+  
+  connection.connect()
+  let sz='SELECT * from komment WHERE komment.komment_szoveg LIKE "%'+req.body.bevitel1+'%"' ;
+
+  connection.query(sz, function (err, rows, fields) {
+  if (err) throw err
+  
+  console.log(rows)
+  res.send(rows)
+  })
+  
+  connection.end()
+    
+  })
+
+  app.post('/osszesfilmkomment', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+  })
+  
+  connection.connect()
+  let sz='SELECT * from film_komment WHERE film_komment.film_komment_szoveg LIKE "%'+req.body.bevitel2+'%"' ;
+
+  connection.query(sz, function (err, rows, fields) {
+  if (err) throw err
+  
+  console.log(rows)
+  res.send(rows)
+  })
+  
+  connection.end()
+    
+  })
   app.post('/ajanlas', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({

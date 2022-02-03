@@ -177,7 +177,7 @@ module.exports = function(app) {
   
   connection.connect()
   
-  connection.query('DELETE FROM filmek where film_id='+ req.body.bevitel1, function (err, rows, fields) {
+  connection.query('DELETE FROM filmek where film_id='+ req.body.bevitel2, function (err, rows, fields) {
     if (err) throw err
   
     console.log(rows)
@@ -700,6 +700,30 @@ module.exports = function(app) {
   connection.end()
   
   })
+  app.post('/filmfelvitel', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+  })
+  
+  connection.connect()
+  
+  
+  
+  connection.query( "INSERT INTO filmek VALUES (NULL, '"+req.body.bevitel9+"', '"+req.body.bevitel10+"', '"+req.body.bevitel11+"', '"+req.body.bevitel12+"', '"+req.body.bevitel13+"');",function (err, rows, fields) {
+    if (err) throw err
+  
+    res.send("Sikerült")
+    console.log("Sikerült")
+  })
+  
+  connection.end()
+  
+  })
+
 
 
 };

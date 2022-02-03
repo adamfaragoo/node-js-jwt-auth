@@ -690,7 +690,7 @@ module.exports = function(app) {
   
   
   
-  connection.query( "INSERT INTO sorozat VALUES (NULL, 'a', 'a', 'a', '2', 'a', 'a', '4', '5');",function (err, rows, fields) {
+  connection.query( "INSERT INTO sorozat VALUES (NULL, '"+req.body.bevitel1+"', '"+req.body.bevitel2+"', '"+req.body.bevitel3+"', '"+req.body.bevitel4+"', '"+req.body.bevitel5+"', '"+req.body.bevitel6+"', '"+req.body.bevitel7+"', '"+req.body.bevitel8+"');",function (err, rows, fields) {
     if (err) throw err
   
     res.send("Sikerült")

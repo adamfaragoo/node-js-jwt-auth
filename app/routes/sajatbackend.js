@@ -4,6 +4,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 var cors = require('cors')
+const fileupload = require("express-fileupload");
 
 app.use(cors())
 app.use(express.json())
@@ -660,5 +661,50 @@ module.exports = function(app) {
   
   connection.end()
   })
+
+  app.use(fileupload());
+  app.post("/upload", (req, res) => {
+    const newpath = "./kepek/";
+    const file = req.files.file;
+    const filename = file.name;
+  
+    file.mv(`${newpath}${filename}`, (err) => {
+      if (err) {
+        return res.status(500).send({ message: "File upload failed", code: 200 });
+      }
+        return res.status(200).send({ message: "File Uploaded", code: 200 });
+    });
+  });
+
+  // FELTÖLTÉS
+  app.post('/sorozatfelvitel', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+  })
+  
+  connection.connect()
+  
+  
+  
+  connection.query( "INSERT INTO sorozat VALUES (NULL, 'a', 'a', 'a', '2', 'a', 'a', '4', '5');",function (err, rows, fields) {
+    if (err) throw err
+  
+    res.send("Sikerült")
+    console.log("Sikerült")
+  })
+  
+  connection.end()
+  
+  })
+
+
 };
 
+
+
+/*
+*/

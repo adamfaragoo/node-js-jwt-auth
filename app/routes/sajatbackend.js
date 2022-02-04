@@ -67,6 +67,8 @@ module.exports = function(app) {
   
   connection.end()
   })
+
+  
   
   app.post('/kereses', (req, res) => {
     var mysql = require('mysql')
@@ -221,7 +223,7 @@ module.exports = function(app) {
   
   connection.connect()
   
-  connection.query('DELETE FROM kommentek where komment_id='+ req.body.bevitel1, function (err, rows, fields) {
+  connection.query('DELETE FROM komment where komment_id='+ req.body.bevitel1, function (err, rows, fields) {
     if (err) throw err
   
     console.log(rows)

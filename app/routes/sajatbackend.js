@@ -838,6 +838,28 @@ connection.query( 'UPDATE filmek SET film_like = film_like+1 WHERE filmek.film_i
 connection.end()
 
   })
+  app.post('/filmdislike', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+})
+
+connection.connect()
+
+
+connection.query( 'UPDATE filmek SET film_dislike = film_dislike-1 WHERE filmek.film_id='+req.body.bevitel5 ,function (err, rows, fields) {
+    if (err) throw err
+
+    res.send(rows)
+    console.log(rows)
+})
+
+connection.end()
+
+  })
 
 
 };

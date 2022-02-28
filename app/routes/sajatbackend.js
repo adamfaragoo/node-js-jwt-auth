@@ -816,6 +816,30 @@ connection.end()
 
   })
 
+  app.post('/filmlike', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+})
+
+connection.connect()
+
+
+connection.query( 'UPDATE filmek SET film_like = film_like+1 WHERE filmek.film_id='+req.body.bevitel4 ,function (err, rows, fields) {
+    if (err) throw err
+
+    res.send(rows)
+    console.log(rows)
+})
+
+connection.end()
+
+  })
+
+
 };
 
 

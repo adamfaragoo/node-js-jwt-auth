@@ -715,7 +715,7 @@ module.exports = function(app) {
   
   
   
-  connection.query( "INSERT INTO filmek VALUES (NULL, '"+req.body.bevitel9+"', '"+req.body.bevitel10+"', '"+req.body.bevitel11+"', '"+req.body.bevitel12+"', '"+req.body.bevitel13+"');",function (err, rows, fields) {
+  connection.query( "INSERT INTO filmek VALUES (NULL, '"+req.body.bevitel9+"', '"+req.body.bevitel10+"', '"+req.body.bevitel11+"', '"+req.body.bevitel12+"', '"+req.body.bevitel13+"', '"+req.body.bevitel14+"');",function (err, rows, fields) {
     if (err) throw err
   
     res.send("Sikerült")
@@ -726,7 +726,95 @@ module.exports = function(app) {
   
   })
 
+  app.post('/sorozatsajatadatok', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+})
 
+connection.connect()
+
+connection.query('SELECT * from sorozat INNER JOIN mufaj ON sorozat.sorozat_mufaj=mufaj.mufaj_id WHERE sorozat.sorozat_id ='+req.body.bevitel3, function (err, rows, fields) {
+  if (err) throw err
+
+  console.log(rows)
+  res.send(rows)
+})
+
+connection.end()
+    
+  })
+
+  app.post('/filmsajatadatok', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+})
+
+connection.connect()
+
+connection.query('SELECT * from filmek INNER JOIN film_mufajok ON filmek.film_mufaj=film_mufajok.mufaj_id WHERE filmek.film_id ='+req.body.bevitel3, function (err, rows, fields) {
+  if (err) throw err
+
+  console.log(rows)
+  res.send(rows)
+})
+
+connection.end()
+    
+  })
+
+  app.post('/sorozatlink', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+})
+
+connection.connect()
+
+
+connection.query( 'SELECT sorozat.sorozat_link FROM sorozat WHERE sorozat.sorozat_id = '+req.body.bevitel1 ,function (err, rows, fields) {
+    if (err) throw err
+
+    res.send(rows)
+    console.log(rows)
+})
+
+connection.end()
+
+  })
+
+  app.post('/filmlink', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+})
+
+connection.connect()
+
+
+connection.query( 'SELECT filmek.film_link FROM filmek WHERE filmek.film_id = '+req.body.bevitel1 ,function (err, rows, fields) {
+    if (err) throw err
+
+    res.send(rows)
+    console.log(rows)
+})
+
+connection.end()
+
+  })
 
 };
 

@@ -850,7 +850,7 @@ connection.end()
 connection.connect()
 
 
-connection.query( 'UPDATE filmek SET film_dislike = film_dislike-1 WHERE filmek.film_id='+req.body.bevitel5 ,function (err, rows, fields) {
+connection.query( 'UPDATE filmek SET film_dislike = film_dislike+1 WHERE filmek.film_id='+req.body.bevitel5 ,function (err, rows, fields) {
     if (err) throw err
 
     res.send(rows)

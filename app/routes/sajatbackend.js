@@ -211,6 +211,49 @@ module.exports = function(app) {
   
   connection.end()
   })
+  app.post('/filmlike', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+  })
+  
+  connection.connect()
+  
+  connection.query('SELECT film_like FROM filmek WHERE filmek.film_id='+ req.body.bevitel4, function (err, rows, fields) {
+    if (err) throw err
+  
+    console.log(rows)
+    
+    res.send(rows)
+  })
+  
+  connection.end()
+  })
+
+  app.post('/filmdislike', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+  })
+  
+  connection.connect()
+  
+  connection.query('SELECT film_dislike FROM filmek WHERE filmek.film_id='+ req.body.bevitel4, function (err, rows, fields) {
+    if (err) throw err
+  
+    console.log(rows)
+    
+    res.send(rows)
+  })
+  
+  connection.end()
+  })
 
   app.post('/sorozatkommenttorles', (req, res) => {
     var mysql = require('mysql')
@@ -816,7 +859,7 @@ connection.end()
 
   })
 
-  app.post('/filmlike', (req, res) => {
+  app.post('/filmlikefelvitel', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
     host: 'localhost',
@@ -838,7 +881,7 @@ connection.query( 'UPDATE filmek SET film_like = film_like+1 WHERE filmek.film_i
 connection.end()
 
   })
-  app.post('/filmdislike', (req, res) => {
+  app.post('/filmdislikefelvitel', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
     host: 'localhost',

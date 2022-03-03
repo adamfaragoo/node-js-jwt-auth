@@ -735,7 +735,7 @@ module.exports = function(app) {
   
   
   
-  connection.query( "INSERT INTO sorozat VALUES (NULL, '"+req.body.bevitel1+"', '"+req.body.bevitel2+"', '"+req.body.bevitel3+"', '"+req.body.bevitel4+"', '"+req.body.bevitel5+"', '"+req.body.bevitel6+"', '"+req.body.bevitel7+"', '"+req.body.bevitel8+"',0,0,0);",function (err, rows, fields) {
+  connection.query( "INSERT INTO sorozat VALUES (NULL, '"+req.body.bevitel1+"', '"+req.body.bevitel2+"', '"+req.body.bevitel3+"', '"+req.body.bevitel4+"', '"+req.body.bevitel5+"', '"+req.body.bevitel6+"', '"+req.body.bevitel7+"', '"+req.body.bevitel8+"','"+req.body.bevitel15+"',0,0,0);",function (err, rows, fields) {
     if (err) throw err
   
     res.send("Sikerült")
@@ -745,6 +745,7 @@ module.exports = function(app) {
   connection.end()
   
   })
+
   app.post('/filmfelvitel', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
@@ -758,7 +759,7 @@ module.exports = function(app) {
   
   
   
-  connection.query( "INSERT INTO filmek VALUES (NULL, '"+req.body.bevitel9+"', '"+req.body.bevitel10+"', '"+req.body.bevitel11+"', '"+req.body.bevitel12+"', '"+req.body.bevitel13+"', '"+req.body.bevitel14+"');",function (err, rows, fields) {
+  connection.query( "INSERT INTO filmek VALUES (NULL, '"+req.body.bevitel9+"', '"+req.body.bevitel10+"', '"+req.body.bevitel11+"', '"+req.body.bevitel12+"', '"+req.body.bevitel13+"', '"+req.body.bevitel14+"','"+req.body.bevitel17+"',0,0,0);",function (err, rows, fields) {
     if (err) throw err
   
     res.send("Sikerült")

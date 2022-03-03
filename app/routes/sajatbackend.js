@@ -735,7 +735,7 @@ module.exports = function(app) {
   
   
   
-  connection.query( "INSERT INTO sorozat VALUES (NULL, '"+req.body.bevitel1+"', '"+req.body.bevitel2+"', '"+req.body.bevitel3+"', '"+req.body.bevitel4+"', '"+req.body.bevitel5+"', '"+req.body.bevitel6+"', '"+req.body.bevitel7+"', '"+req.body.bevitel8+"');",function (err, rows, fields) {
+  connection.query( "INSERT INTO sorozat VALUES (NULL, '"+req.body.bevitel1+"', '"+req.body.bevitel2+"', '"+req.body.bevitel3+"', '"+req.body.bevitel4+"', '"+req.body.bevitel5+"', '"+req.body.bevitel6+"', '"+req.body.bevitel7+"', '"+req.body.bevitel8+"',0,0,0);",function (err, rows, fields) {
     if (err) throw err
   
     res.send("Sikerült")
@@ -902,6 +902,95 @@ connection.query( 'UPDATE filmek SET film_dislike = film_dislike+1 WHERE filmek.
 
 connection.end()
 
+  })
+
+  app.get('/legfrissebbfilmek', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+  })
+  
+  connection.connect()
+  let sz = 'SELECT  * FROM filmek ORDER BY filmek.film_ev DESC LIMIT 5 ';
+  connection.query(sz, function (err, rows, fields) {
+    if (err) throw err
+  
+    console.log(rows)
+    
+    res.send(rows)
+  })
+  
+  connection.end()
+  })
+
+  app.get('/legfrissebbsorozatok', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+  })
+  
+  connection.connect()
+  let sz = 'SELECT  * FROM sorozat ORDER BY sorozat.sorozat_ev DESC LIMIT 5 ';
+  connection.query(sz, function (err, rows, fields) {
+    if (err) throw err
+  
+    console.log(rows)
+    
+    res.send(rows)
+  })
+  
+  connection.end()
+  })
+
+
+  app.get('/legnezettebbfilmek', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+  })
+  
+  connection.connect()
+  let sz = 'SELECT  * FROM filmek ORDER BY filmek.film_kattintas DESC LIMIT 5 ';
+  connection.query(sz, function (err, rows, fields) {
+    if (err) throw err
+  
+    console.log(rows)
+    
+    res.send(rows)
+  })
+  
+  connection.end()
+  })
+
+  app.get('/legnezettebbsorozatok', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'vizsgamunka'
+  })
+  
+  connection.connect()
+  let sz = 'SELECT  * FROM sorozat ORDER BY sorozat.sorozat_kattintas DESC LIMIT 5 ';
+  connection.query(sz, function (err, rows, fields) {
+    if (err) throw err
+  
+    console.log(rows)
+    
+    res.send(rows)
+  })
+  
+  connection.end()
   })
 
 
